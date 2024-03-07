@@ -24,12 +24,12 @@
                 GuessStatus = new();
 
                 for (int i = 0; i < 5; i++)
-                { 
+                {
                     char letter = Word[i];
                     bool isDuplicateInAnswer = answer.Count(x => x == letter) > 1;
 
                     //Check for duplicate letters
-                    if ((GuessStatus.Contains((letter, LetterStatus.Correct)) || GuessStatus.Contains((letter, LetterStatus.IncorrectPosition))) && isDuplicateInAnswer)
+                    if ((GuessStatus.Contains((letter, LetterStatus.Correct)) || GuessStatus.Contains((letter, LetterStatus.IncorrectPosition))) && !isDuplicateInAnswer)
                     {
                         GuessStatus.Add((letter, LetterStatus.Incorrect));
                     }
@@ -48,7 +48,8 @@
         /// </summary>
         public bool IsWinningGuess(string answer)
         {
-            if (!string.IsNullOrEmpty(Word)) {
+            if (!string.IsNullOrEmpty(Word))
+            {
                 if (Word.Equals(answer)) return true;
                 return false;
             }
