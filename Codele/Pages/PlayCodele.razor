@@ -63,7 +63,7 @@
                     <h4 class="modal-title">@gameStatusMessage</h4>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Correct Answer: </strong> @correctGuess</p>
+                    <p><strong>Correct Answer: </strong> @answer</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" @onclick="StartNewGame">New Game?</button>
@@ -85,7 +85,7 @@
     private string[]? answers;
 
     // the answer for the current game
-    private string? correctGuess;
+    private string? answer;
 
     // # of tries the player has to guess the word
     private int attempts;
@@ -106,7 +106,7 @@
         attempts = 1;
         answers = await Http.GetFromJsonAsync<string[]>("sample-data/codele-word-library.json");
         Random randomGenerator = new Random();
-        correctGuess = answers[randomGenerator.Next(0, answers.Length)];
+        answer = answers[randomGenerator.Next(0, answers.Length)];
     }
 
     // Close the game status modal
@@ -131,9 +131,9 @@
 
                 if (attempts < 5)
                 {
-                    guess.GetGuessStatuses(correctGuess);
+                    guess.GetGuessStatuses(answer);
 
-                    if (guess.IsWinningGuess(correctGuess))
+                    if (guess.IsWinningGuess(answer))
                     {
                         showModal = true;
                         gameStatusMessage = "You won!";
@@ -165,7 +165,7 @@
         guesses.Clear();
         attempts = 1;
         Random randomGenerator = new Random();
-        correctGuess = answers[randomGenerator.Next(0, answers.Length)];
+        answer = answers[randomGenerator.Next(0, answers.Length)];
         showModal = false;
         newGuess = string.Empty;
     }
