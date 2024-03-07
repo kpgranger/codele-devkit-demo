@@ -160,8 +160,13 @@
             displayGuessSizeMsg = true;
         }
     }
-    private void StartNewGame(MouseEventArgs e)
+    private void StartNewGame()
     {
-        throw new NotImplementedException();
+        guesses.Clear();
+        attempts = 1;
+        Random randomGenerator = new Random();
+        correctGuess = answers[randomGenerator.Next(0, answers.Length)];
+        showModal = false;
+        newGuess = string.Empty;
     }
 }
